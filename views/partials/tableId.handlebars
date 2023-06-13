@@ -1,0 +1,40 @@
+<section class="container">
+    <h3 class="text-light">El anime seleccionado es:</h3>
+    <table class="table table-light table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Género</th>
+                <th scope="col">Año</th>
+                <th scope="col">Autor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {{#each data}}
+                <th scope="row">{{this.id}}</th>
+                <td>{{this.nombre}}</td>
+                <td>{{this.genero}}</td>
+                <td>{{this.año}}</td>
+                <td>{{this.autor}}</td>
+                {{/each}}
+            </tr>
+        </tbody>
+    </table>
+</section>
+<div class="text-center p-5">
+    <a id="volverBtn" class="btn" href="/animes">Volver</a>
+</div>
+
+
+<style>
+    #volverBtn{
+        background-color: rgb(226, 55, 140);
+        color: white;  
+    }
+    #volverBtn:hover{
+        background-color: rgb(228, 145, 186);
+        color: black;
+    }
+</style>

@@ -1,0 +1,18 @@
+{{!-- Envía data recibida a la tabla que muestra los anime--}}
+
+{{#if target}}
+    {{>table
+        data=target
+    }}
+{{else}}
+    <h2>Se produjo un error</h2>
+{{/if}}
+<section>
+    {{#if target}}
+        {{>form
+            data=target
+        }}
+    {{else}}
+        <h2>Se produjo un error</h2>
+    {{/if}}
+</section>

@@ -1,0 +1,10 @@
+<h1>El anime que buscaste:</h1>
+
+{{#if target}}
+    {{>tableId 
+        data=target     
+    }}
+    
+{{else}}
+    <h2 class="text-center my-3 text-light">No existe id para mostrar</h2>
+{{/if}} 

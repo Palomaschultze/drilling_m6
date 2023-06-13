@@ -1,0 +1,114 @@
+{{!--formulario para agregar o crear anime--}}
+<section id="form" class="d-none text-light pb-5">
+    <div class="w-75 mx-auto">
+        <h2 class="text-center  mx-auto">Formulario de Anime</h2>
+        <p class="text-center">*Ingresa todos los datos solicitados</p>
+        <form id="formCreateUser" class="w-50 text-start mx-auto">
+            <label for="createNombre" class="form-label px-3">Nombre</label>
+            <input type="text" name="createNombre" id="createNombre" class="form-control" required>
+            <label for="createGenero" class="form-label px-3">Género</label>
+            <input type="text" name="createGenero" id="createGenero" class="form-control" required>
+            <label for="createAño" class="form-label px-3">Año</label>
+            <input type="text" name="createAño" id="createAño" class="form-control" required>
+            <label for="createAutor" class="form-label px-3">Autor</label>
+            <input id="createAutor" type="text" name="createAutor px-3"  class="form-control" required>
+            <input id="createForm" type="submit" value="Agregar nuevo anime" class="btn my-5 d-block ">
+            <input id="updateForm" type="submit" value="Modificar" class="btn my-5 d-block">
+        </form>
+    </div>
+</section>
+
+<script>
+
+//Se captura el evento submit del formualrio para agregar y modificar
+    let formCreateUser = document.getElementById("formCreateUser")
+    formCreateUser.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        let selector = event.submitter.id
+        if (selector == "createForm") {
+
+            console.log("Capturando nuevo anime");
+            try {
+                const raw = JSON.stringify({
+                    "nombre": createNombre.value,
+                    "genero": createGenero.value,
+                    "año": createAño.value,
+                    "autor": createAutor.value
+                });
+
+                const myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/json");
+
+                // Enviar la solicitud de creación del anime
+                let response = await fetch("/animes", {
+                    method: "POST",
+                    headers: myHeaders,
+                    body: raw,
+                    redirect: 'follow'
+                });
+
+                let data = await response.json();
+                if (data.code == 201) {
+                    alert("Anime creado con éxito")
+                    formCreateUser.reset();
+                    location.reload();
+                } else {
+                    throw new Error("Error al guardar los datos en la base de datos")
+                }
+            } catch (error) {
+                alert(error.message)
+            }
+
+        //modificar
+        } else if (selector == 'updateForm') {
+            console.log('Actualizando Anime');
+            try {
+                const raw = JSON.stringify({
+                    "id": id,
+                    "nombre": createNombre.value,
+                    "genero": createGenero.value,
+                    "año": createAño.value,
+                    "autor": createAutor.value
+                });
+
+                const myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/json");
+
+                let response = await fetch("/animes", {
+                    method: "PUT",
+                    headers: myHeaders,
+                    body: raw,
+                    redirect: 'follow'
+                });
+
+                let data = await response.json();
+                if (data.code == 200) {
+                    alert("Anime modificado con éxito")
+                    formCreateUser.reset();
+                    location.reload();
+                } else {
+                    throw new Error("Error al modificar los datos en la base de datos")
+                }
+            } catch (error) {
+                alert(error.message)
+            }
+        }
+    });
+</script>
+
+
+<style>
+    #createForm, #updateForm{
+        background-color: rgb(226, 55, 140);
+        color: white;
+        text-align: center;
+        margin: 20px auto; 
+    }
+    #createForm:hover, #updateForm:hover{
+        background-color: rgb(228, 145, 186);
+        color: black;
+        text-align: center;
+        margin: 20px auto;
+    }
+
+</style>
