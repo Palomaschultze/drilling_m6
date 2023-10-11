@@ -33,12 +33,5 @@
         "año": "1995",
         "autor": "Yoshiyuki Sadamoto",
         "id": "4"
-    },
-    {
-        "id": "5",
-        "nombre": "prueba",
-        "genero": "hola",
-        "año": "hola",
-        "autor": "hola"
     }
 ]
